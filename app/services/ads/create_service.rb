@@ -14,7 +14,7 @@ module Ads
 
     def call
       data = @ad.to_h.merge(user_id: @user_id)
-      @ad = ::Ad.create(data)
+      @ad = ::Ad.new(data)
       return fail!(@ad.errors) unless @ad.save
 
       # GeocodingJob.perform_later(@ad)
