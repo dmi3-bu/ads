@@ -47,6 +47,7 @@ RSpec.configure do |config|
   # assertions if you prefer.
   config.include Rack::Test::Methods
   config.include RequestHelpers, type: :request
+  config.include ClientHelpers, type: :client
 
   def app
     Application
