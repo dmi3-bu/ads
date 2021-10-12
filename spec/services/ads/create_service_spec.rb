@@ -1,7 +1,16 @@
+require './spec/spec_helper'
+
 RSpec.describe Ads::CreateService do
   subject { described_class }
 
   let(:user_id) { SecureRandom.uuid }
+  let(:geocoder_service) { instance_double('Geocoder service') }
+  let(:coords) { { 'lat' => '37.9', 'lon' => '29.6' } }
+
+  before do
+    allow(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
+    allow(geocoder_service).to receive(:geocode).and_return(coords)
+  end
 
   context 'valid parameters' do
     let(:ad_params) do
@@ -23,12 +32,14 @@ RSpec.describe Ads::CreateService do
       expect(result.ad).to be_kind_of(Ad)
     end
 
-    # it 'enqueues geocoding job' do
-    #   ActiveJob::Base.queue_adapter = :test
-    #   subject.call(ad: ad_params, user: user)
-    #
-    #   expect(Ads::GeocodingJob).to have_been_enqueued.with(kind_of(Ad))
-    # end
+    it 'calls geocoder service and saves coords to ad' do
+      expect(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
+      expect(geocoder_service).to receive(:geocode).and_return(coords)
+
+      result = subject.call(ad: ad_params, user_id: user_id)
+      expect(result.ad.lat).to eq(37.9)
+      expect(result.ad.lon).to eq(29.6)
+    end
   end
 
   context 'invalid parameters' do
@@ -51,11 +62,10 @@ RSpec.describe Ads::CreateService do
       expect(result.ad).to be_kind_of(Ad)
     end
 
-    # it 'does not enqueue geocoding job' do
-    #   ActiveJob::Base.queue_adapter = :test
-    #   subject.call(ad: ad_params, user: user)
-    #
-    #   expect(Ads::GeocodingJob).not_to have_been_enqueued
-    # end
+    it 'does not call geocoder service' do
+      expect(GeocoderService::Client).not_to receive(:new)
+
+      subject.call(ad: ad_params, user_id: user_id)
+    end
   end
 end

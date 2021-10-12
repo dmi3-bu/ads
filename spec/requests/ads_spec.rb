@@ -20,10 +20,14 @@ RSpec.describe 'Ads API', type: :request do
     let(:user_id) { SecureRandom.uuid }
     let(:auth_token) { 'token' }
     let(:auth_service) { instance_double('Auth service') }
+    let(:geocoder_service) { instance_double('Geocoder service') }
+    let(:coords) { { 'lat' => '37.9', 'lon' => '29.6' } }
 
     before do
       allow(AuthService::Client).to receive(:new).and_return(auth_service)
       allow(auth_service).to receive(:auth).with(auth_token).and_return(user_id)
+      allow(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
+      allow(geocoder_service).to receive(:geocode).and_return(coords)
     end
 
     context 'missing parameters' do

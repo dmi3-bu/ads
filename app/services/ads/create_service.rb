@@ -17,7 +17,10 @@ module Ads
       @ad = ::Ad.new(data)
       return fail!(@ad.errors) unless @ad.save
 
-      # GeocodingJob.perform_later(@ad)
+      coords = GeocoderService::Client.new.geocode(@ad.city)
+      return if coords.blank?
+
+      @ad.update!(lat: coords['lat'], lon: coords['lon'])
     end
   end
 end
