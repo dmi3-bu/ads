@@ -2,6 +2,7 @@ class Application < Sinatra::Base
   helpers Sinatra::UrlForHelper
   include ::PaginationLinks
   include ::ApiErrors
+  include ::Auth
 
   configure :development do
     register Sinatra::Reloader
@@ -17,11 +18,10 @@ class Application < Sinatra::Base
   end
 
   post '/ads' do
-    current_user = SecureRandom.uuid
     params = JSON.parse(request.body.read).deep_symbolize_keys
     result = Ads::CreateService.call(
       ad: params[:ad],
-      user_id: current_user
+      user_id: user_id
     )
 
     if result.success?
@@ -43,5 +43,9 @@ class Application < Sinatra::Base
 
   error KeyError, JSON::ParserError do
     error_response(I18n.t(:missing_parameters, scope: 'api.errors'), :unprocessable_entity)
+  end
+
+  error Auth::Unauthorized do
+    error_response(I18n.t(:unauthorized, scope: 'api.errors'), :forbidden)
   end
 end

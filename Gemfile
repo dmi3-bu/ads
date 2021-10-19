@@ -4,6 +4,8 @@ ruby '2.7.3'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'faraday'
+gem 'faraday_middleware'
 
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'activerecord'
