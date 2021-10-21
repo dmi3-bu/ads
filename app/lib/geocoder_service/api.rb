@@ -1,10 +1,8 @@
 module GeocoderService
   module Api
-    def geocode(city)
-      response = connection.post('geocode') do |request|
-        request.body = { city: city }.to_json
-      end
-      response.body['coords'] if response.success?
+    def geocode_later(ad)
+      payload = { id: ad.id, city: ad.city }.to_json
+      publish(payload, type: 'geocode')
     end
   end
 end

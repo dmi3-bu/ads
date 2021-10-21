@@ -27,7 +27,7 @@ RSpec.describe 'Ads API', type: :request do
       allow(AuthService::Client).to receive(:new).and_return(auth_service)
       allow(auth_service).to receive(:auth).with(auth_token).and_return(user_id)
       allow(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
-      allow(geocoder_service).to receive(:geocode).and_return(coords)
+      allow(geocoder_service).to receive(:geocode_later)
     end
 
     context 'missing parameters' do

@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'bunny'
 
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'activerecord'
