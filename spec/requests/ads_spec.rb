@@ -24,8 +24,9 @@ RSpec.describe 'Ads API', type: :request do
     let(:coords) { { 'lat' => '37.9', 'lon' => '29.6' } }
 
     before do
-      allow(AuthService::Client).to receive(:new).and_return(auth_service)
-      allow(auth_service).to receive(:auth).with(auth_token).and_return(user_id)
+      allow(AuthService::Client).to receive(:fetch).and_return(auth_service)
+      allow(auth_service).to receive(:auth).with(auth_token)
+      allow(auth_service).to receive(:user_id).and_return(user_id)
       allow(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
       allow(geocoder_service).to receive(:geocode_later)
     end
