@@ -9,7 +9,7 @@ RSpec.describe Ads::CreateService do
 
   before do
     allow(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
-    allow(geocoder_service).to receive(:geocode).and_return(coords)
+    allow(geocoder_service).to receive(:geocode_later)
   end
 
   context 'valid parameters' do
@@ -32,13 +32,11 @@ RSpec.describe Ads::CreateService do
       expect(result.ad).to be_kind_of(Ad)
     end
 
-    it 'calls geocoder service and saves coords to ad' do
+    it 'calls geocoder service' do
       expect(GeocoderService::Client).to receive(:new).and_return(geocoder_service)
-      expect(geocoder_service).to receive(:geocode).and_return(coords)
+      expect(geocoder_service).to receive(:geocode_later)
 
       result = subject.call(ad: ad_params, user_id: user_id)
-      expect(result.ad.lat).to eq(37.9)
-      expect(result.ad.lon).to eq(29.6)
     end
   end
 

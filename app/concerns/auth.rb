@@ -6,7 +6,8 @@ module Auth
   AUTH_TOKEN = %r{\ABearer (?<token>.+)\z}.freeze
 
   def user_id
-    user_id = auth_service.auth(matched_token)
+    auth_service.auth(matched_token)
+    user_id = auth_service.user_id
     raise Unauthorized if user_id.blank?
 
     user_id
@@ -15,7 +16,7 @@ module Auth
   private
 
   def auth_service
-    @auth_service ||= AuthService::Client.new
+    @auth_service ||= AuthService::Client.fetch
   end
 
   def matched_token

@@ -33,6 +33,17 @@ class Application < Sinatra::Base
     end
   end
 
+  post '/update_coordinates' do
+    params = JSON.parse(request.body.read).deep_symbolize_keys
+    result = Ads::UpdateService.call(params[:id], params[:data])
+
+    if result.success?
+      halt 200
+    else
+      error_response(result.ad, :unprocessable_entity)
+    end
+  end
+
   error ActiveRecord::RecordNotFound do
     error_response(I18n.t(:not_found, scope: 'api.errors'), :not_found)
   end

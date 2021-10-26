@@ -21,10 +21,7 @@ module Ads
         return @ad.update!(lat: other_ad.lat, lon: other_ad.lon)
       end
 
-      coords = GeocoderService::Client.new.geocode(@ad.city)
-      return if coords.blank?
-
-      @ad.update!(lat: coords['lat'], lon: coords['lon'])
+      GeocoderService::Client.new.geocode_later(@ad)
     end
   end
 end
