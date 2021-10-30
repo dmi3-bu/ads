@@ -1,2 +1,4 @@
 config/database.yml
 tmp
+/log/*
+!/log/.keep

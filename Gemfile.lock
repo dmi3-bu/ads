@@ -18,6 +18,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    amazing_print (1.4.0)
     amq-protocol (2.3.2)
     builder (3.2.4)
     bunny (2.19.0)
@@ -84,13 +85,20 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.12.4-x86_64-linux)
       racc (~> 1.4)
+    oj (3.13.9)
+    ougai (1.9.1)
+      oj (~> 3.10)
     pg (1.2.3)
     puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-ougai (0.2.1)
+      ougai (~> 1.5)
+      rack (~> 2.0)
     rack-protection (2.1.0)
       rack
+    rack-request-id (0.0.4)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails-dom-testing (2.0.3)
@@ -142,6 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  amazing_print
   bunny
   database_cleaner-active_record (~> 1.8.0)
   dry-initializer (~> 3.0.3)
@@ -153,6 +162,8 @@ DEPENDENCIES
   kaminari (~> 1.2.1)
   pg (>= 0.18, < 2.0)
   puma (~> 4.3)
+  rack-ougai
+  rack-request-id
   rack-test
   rake
   rspec

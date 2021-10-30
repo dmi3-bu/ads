@@ -49,7 +49,10 @@ module AuthService
           opts.merge(
             app_id: 'ads',
             reply_to: @reply_queue.name,
-            correlation_id: @correlation_id
+            correlation_id: @correlation_id,
+            headers: {
+              request_id: Thread.current[:request_id]
+            }
           )
         )
 
