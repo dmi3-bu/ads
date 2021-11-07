@@ -1,5 +1,5 @@
 class Application < Sinatra::Base
-  helpers Sinatra::UrlForHelper
+  helpers Sinatra::UrlForHelper, Sinatra::CustomLogger
   include ::PaginationLinks
   include ::ApiErrors
   include ::Auth

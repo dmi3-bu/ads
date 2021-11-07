@@ -20,6 +20,10 @@ gem 'fast_jsonapi', '~> 1.5'
 gem 'emk-sinatra-url-for'
 gem 'dry-initializer', '~> 3.0.3'
 
+gem 'rack-ougai'
+gem 'rack-request-id'
+gem 'amazing_print'
+
 group :development, :test do
   gem 'factory_bot'
 end
