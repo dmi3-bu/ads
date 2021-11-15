@@ -37,3 +37,9 @@ bundle exec rackup
 ```
 bundle exec rspec
 ```
+
+# Деплой
+```
+docker build -t ads .
+ansible-playbook deploy/deploy.yml
+```

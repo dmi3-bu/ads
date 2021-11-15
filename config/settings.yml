@@ -1,0 +1,6 @@
+app:
+  secret: secret
+rabbitmq:
+  host: <%= ENV['RABBITMQ_HOST'] || 'localhost:5672' %>
+  username: <%= ENV['RABBITMQ_USER'] || 'guest' %>
+  password: <%= ENV['RABBITMQ_PASSWORD'] || 'guest' %>

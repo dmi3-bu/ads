@@ -1,5 +1,6 @@
 Application.configure do |app|
-  logger = Ougai::Logger.new("./log/#{Application.environment}.log", level: 'debug')
+  log_dev = app.production? ? STDOUT : "./log/#{Application.environment}.log"
+  logger = Ougai::Logger.new(log_dev, level: 'debug')
 
   if Application.development?
     logger.formatter = Ougai::Formatters::Readable.new
