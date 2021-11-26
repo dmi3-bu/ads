@@ -4,6 +4,8 @@ ruby '2.7.3'
 
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'config'
+
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'bunny'
